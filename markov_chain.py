@@ -1,5 +1,3 @@
-import re
-
 from dictogram import Dictogram
 
 
@@ -81,3 +79,13 @@ class MarkovChain:
             sentence[-1] += '.'
         sentence[0] = sentence[0].capitalize()
         return ' '.join(sentence)
+
+
+if __name__ == '__main__':
+    corpus = 'demo/corpus'
+    mc = MarkovChain()
+    with open(corpus, 'r') as c:
+        for line in c.readlines():
+            mc.parse_and_add(line.strip())
+        for i in range(20):
+            print(mc.generate_sentence(140))

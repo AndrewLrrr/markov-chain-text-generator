@@ -1,4 +1,5 @@
 import unittest
+
 from dictogram import Dictogram
 
 
