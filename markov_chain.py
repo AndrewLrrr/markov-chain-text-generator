@@ -1,4 +1,4 @@
-from dictogram import Dictogram
+from .dictogram import Dictogram
 
 
 class MarkovChain:
@@ -11,11 +11,16 @@ class MarkovChain:
         """Преобразует строку в набор набор последовательностей и добавляет их в статистику."""
         data = []
         words = [w.strip() for w in string.split()]
+        is_end_of_sentence = False
         for word in words:
             data.append(word)
-            if word[-1] in ('.', '?', '!'):
+            if is_end_of_sentence:
                 self.add(data)
-                data = []
+                data = [word]
+                is_end_of_sentence = False
+            if word[-1] in ('.', '?', '!'):
+                is_end_of_sentence = True
+        self.add(data)
 
     def add(self, data):
         """Добавляет набор слов в статистику."""
@@ -79,13 +84,3 @@ class MarkovChain:
             sentence[-1] += '.'
         sentence[0] = sentence[0].capitalize()
         return ' '.join(sentence)
-
-
-if __name__ == '__main__':
-    corpus = 'demo/corpus'
-    mc = MarkovChain()
-    with open(corpus, 'r') as c:
-        for line in c.readlines():
-            mc.parse_and_add(line.strip())
-        for i in range(20):
-            print(mc.generate_sentence(140))

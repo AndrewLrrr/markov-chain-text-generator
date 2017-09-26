@@ -59,6 +59,7 @@ class TestMarkovChain(unittest.TestCase):
             ('amet,',): {'consectetur': 1},
             ('consectetur',): {'adipiscing': 1},
             ('adipiscing',): {'elit.': 1},
+            ('elit.',): {'Donec': 1},
             ('Donec',): {'ornare': 1},
             ('ornare',): {'placerat': 1},
             ('placerat',): {'fringilla.': 1},
